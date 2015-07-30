@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,10 +14,11 @@ class DS_Vector
 	private:
 		int no_singletons, no_sin_focalele, no_sin_belief, no_sin_plausibility;
 		vector<string> singleton;				// vector of singleton names
+		vector<string>::iterator it_str;
 		vector<int> belief_ele_vec;				// integer value of singletons in a "belief"
 		vector<int> plausibility_ele_vec;			// integer value of singletons in a "plausibility"
 		vector<int> belief_inv_ele_vec;				// integer value of singletons in a "belief complement"
-		vector<float> focal_elements; 				// 1048576 focal elements from 20 singletons
+		vector<float> focal_element; 				// 1048576 focal elements from 20 singletons
 		vector<int> focal_index;
 		double normalize_const;
 		bool debug;
@@ -27,14 +29,14 @@ class DS_Vector
 		DS_Vector(void)
 		{
 			debug = false;
-			focal_elements.assign(1048576, 0);
+			focal_element.assign(1048576, 0);
 			focal_index.assign(1048576, 0);
 		}
 
 		DS_Vector(int singletons)
 		{
 			debug = false;
-			focal_elements.assign(pow(2, singletons), 0);
+			focal_element.assign(pow(2, singletons), 0);
 			focal_index.assign(pow(2, singletons), 0);
 		}
 
@@ -203,26 +205,44 @@ class DS_Vector
 		void genRandomMassValues(void)
 		{
 			srand(time(NULL)); 				// initialize random seed
-			focal_elements[0] = 0.0;			// assign value 0.0 to null element
+			focal_element[0] = 0.0;			// assign value 0.0 to null element
 			for (int i = 1; i < pow(2, no_singletons); i++)
 			{
-				focal_elements[i] = rand() % 10000;	// generate a random number between 0 and 9999
-				normalize_const += focal_elements[i];	// finding normalizing constant
+				focal_element[i] = rand() % 10000;	// generate a random number between 0 and 9999
+				normalize_const += focal_element[i];	// finding normalizing constant
 			}
 			// no need to normalize everytime, we can normalize only when we use
 			//	for (int i = 0; i < pow(2, no_singletons); i++)
-		 	//		focal_elements[i] /= normalize_const;
+		 	//		focal_element[i] /= normalize_const;
 
 			if (debug)
 				for (int i = 0; i < pow(2, no_singletons); i++)
-					cout << "mass(" << i << ") \t: " << focal_elements[i] / normalize_const << endl;
+					cout << "mass(" << i << ") \t: " << focal_element[i] / normalize_const << endl;
+		}
+
+		void genIncreasingMassValues(void)			// specially for testing
+		{
+			srand(time(NULL)); 				// initialize random seed
+			focal_element[0] = 0.0;			// assign value 0.0 to null element
+			for (int i = 1; i < pow(2, no_singletons); i++)
+			{
+				focal_element[i] = i;			// generate a random number between 0 and 9999
+				normalize_const += focal_element[i];	// finding normalizing constant
+			}
+			// no need to normalize everytime, we can normalize only when we use
+			//	for (int i = 0; i < pow(2, no_singletons); i++)
+		 	//		focal_element[i] /= normalize_const;
+
+			if (debug)
+				for (int i = 0; i < pow(2, no_singletons); i++)
+					cout << "mass(" << i << ") \t: " << focal_element[i] / normalize_const << endl;
 		}
 		
 		double accessFocalElement(int index)
 		{
 			double element;
 			begin = clock();
-			element = focal_elements[index];
+			element = focal_element[index];
 			end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			if (debug)
@@ -249,7 +269,7 @@ class DS_Vector
 			}
 
 			for (int i = 0; i < pow(2, no_sin_belief) - 1; i++)
-				belief += focal_elements[focal_index[i]];
+				belief += focal_element[focal_index[i]];
 			end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			cout << "Time spent on calculating belief \t: " << time_spent << endl;
@@ -275,14 +295,67 @@ class DS_Vector
 			}
 
 			for (int i = 0; i < pow(2, no_singletons - no_sin_plausibility) - 1; i++)
-				belief_inv += focal_elements[focal_index[i]];
+				belief_inv += focal_element[focal_index[i]];
 				plausibility = normalize_const - belief_inv;
 			end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			cout << "Time spent on calculating plausibility \t: " << time_spent << endl;
-			cout << "Plausibility of " << pow(2, no_singletons) - pow(2, no_singletons - no_sin_plausibility) - 1 << " focal ele \t: " << plausibility / normalize_const << endl;
+			cout << "Plausibility of " << (int)pow(2, no_singletons) - (int)pow(2, no_singletons - no_sin_plausibility) - 1 << " focal ele \t: " << plausibility / normalize_const << endl;
 			return plausibility / normalize_const;
 		}
+		
+		void removeFocalEleSingleton(void)
+		{
+			string st;
+			int singleton_number;
+			int start = 1;
+			cin >> st;
+			for (int i = 0; i < no_singletons; i++)
+				if (st == singleton[i])
+				{
+					singleton_number = i;
+					break;
+				}
+				singleton.erase(singleton.begin() + singleton_number);
+			while (pow(2, singleton_number) * 2 * start <= pow(2, no_singletons))
+			{
+				for (int i = pow(2, singleton_number) * (2 * start - 1); i < pow(2, singleton_number) * 2 * start; i++) 
+				{
+					normalize_const -= focal_element[i];
+				}
+				if (start > 1)
+					copy(focal_element.begin() + (int)pow(2, singleton_number) * 2 * (start - 1), 
+						focal_element.begin() + (int)pow(2, singleton_number) * 2 * (start - 1) + 
+						(int)pow(2, singleton_number), focal_element.begin() +	
+						(int)pow(2, singleton_number) * (start - 1));
+				start++;
+			}
+			no_singletons--;
+			focal_element.resize(pow(2, no_singletons));
+		 
+		}
+
+		void printFocalElements(void)				//print focal elements without normalizing
+		{
+			for (int i = 0; i < pow(2, no_singletons); i++)
+				cout << focal_element[i] << endl;
+				 
+		}
+		
+		void printFocalElementsNormalized(void)			//print focal elements
+		{
+			for (int i = 0; i < pow(2, no_singletons); i++)
+				cout << (int)focal_element[i] / normalize_const << endl;
+				 
+		}
+		
+		void printSingletonVector(void)				//print singleton vector
+		{
+			for (it_str = singleton.begin(); it_str != singleton.end(); it_str++)
+				cout << *it_str << " ";
+			cout << endl;
+		}
+			
 };
 
 int main()
@@ -294,11 +367,17 @@ int main()
 	ds_vector.getSingletons();
 	index = ds_vector.calFocalIndexAscending();
 	element = ds_vector.accessFocalElement(index);
-	ds_vector.genRandomMassValues();
+	ds_vector.genIncreasingMassValues();
 	ds_vector.fillingBeliefVecAscending();
 	ds_vector.calBelief();
 	ds_vector.fillingBeliefInvVecAscending();
 	ds_vector.calPlausibility();
+	ds_vector.printSingletonVector();
+	ds_vector.removeFocalEleSingleton();
+	ds_vector.removeFocalEleSingleton();
+	ds_vector.removeFocalEleSingleton();
+	ds_vector.printSingletonVector();
+//	ds_vector.printFocalElements();
 	
 	return 0;
 }
