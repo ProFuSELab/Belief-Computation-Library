@@ -14,7 +14,8 @@ class DS_Vector
 		int no_singletons, no_sin_focalele, no_sin_belief, no_sin_plausibility;
 		vector<string> singleton;				// vector of singleton names
 		vector<int> belief_ele_vec;				// integer value of singletons in a "belief"
-		vector<int> plausibility_ele_vec;			// integer value of singletons in a "belief"
+		vector<int> plausibility_ele_vec;			// integer value of singletons in a "plausibility"
+		vector<int> belief_inv_ele_vec;				// integer value of singletons in a "belief complement"
 		vector<float> focal_elements; 				// 1048576 focal elements from 20 singletons
 		vector<int> focal_index;
 		double normalize_const;
@@ -110,7 +111,7 @@ class DS_Vector
 			}
 		}
 
-		void fillingBeliefVecAscending(void)			// filling belief vector, fast (ascending)
+		void fillingBeliefVecAscending(void)			// filling belief vector, fast(ascending)
 		{
 			belief_ele_vec.clear();
 			int cnt = 0;
@@ -142,7 +143,7 @@ class DS_Vector
 			}
 		}
 
-		void fillingPlausibilityVecAscending(void)		// filling plausibility vector, any order	
+		void fillingPlausibilityVecAscending(void)		// filling plausibility vector, fast(ascending)
 		{
 			plausibility_ele_vec.clear();
 			int cnt = 0;
@@ -157,6 +158,45 @@ class DS_Vector
 				}
 				plausibility_ele_vec.push_back(pow(2, cnt));	
 				cnt++;
+			}
+		}
+
+		void fillingBeliefInvVecAnyOrder(void)			// filling belief_inv vector, any order	
+		{							// to calculate plausibility
+			belief_inv_ele_vec.clear();
+			string st;
+			cin >> no_sin_plausibility;	
+			for (int i = 0; i < no_sin_plausibility; i++)	
+			{
+				cin >> st; 
+				for (int j = 0; j < singleton.size(); j++)
+					if (st == singleton[j])
+					{
+						// have to finish this function
+					}
+			}
+		}
+
+		void fillingBeliefInvVecAscending(void)			// filling belief_inv vector, fast(ascending)
+		{							// to calculate plausibility
+			belief_inv_ele_vec.clear();
+			int cnt = 0;
+			string st;
+			cin >> no_sin_plausibility;	
+			for (int i = 0; i < no_sin_plausibility; i++)	
+			{
+				cin >> st; 
+				while (st != singleton[cnt])
+				{
+					belief_inv_ele_vec.push_back(pow(2, cnt));	
+					++cnt;
+				}
+				cnt++;
+			}
+			while (cnt < no_singletons)
+			{
+				belief_inv_ele_vec.push_back(pow(2, cnt));	
+				++cnt;
 			}
 		}
 
@@ -193,6 +233,7 @@ class DS_Vector
 		
 		double calBelief(void)
 		{
+			double belief = 0.0;
 			begin = clock();
 			int focal_index_cnt = 0, focal_index_temp;
 			for (int i = 0; i < no_sin_belief; i++)		// finding all the indexes
@@ -207,14 +248,40 @@ class DS_Vector
 				}
 			}
 
-			double belief = 0.0;
 			for (int i = 0; i < pow(2, no_sin_belief) - 1; i++)
 				belief += focal_elements[focal_index[i]];
 			end = clock();
 			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 			cout << "Time spent on calculating belief \t: " << time_spent << endl;
-			cout << "Belief of " << pow(2, no_sin_belief) - 1 << " singletons \t: " << belief / normalize_const << endl;
+			cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " << belief / normalize_const << endl;
 			return belief / normalize_const;
+		}
+
+		double calPlausibility(void)
+		{
+			double plausibility = 0.0, belief_inv = 0.0;
+			begin = clock();
+			int focal_index_cnt = 0, focal_index_temp;
+			for (int i = 0; i < no_singletons - no_sin_plausibility; i++)	// finding all the indexes
+			{ 
+				focal_index[focal_index_cnt] = belief_inv_ele_vec[i];
+				focal_index_cnt++;
+				focal_index_temp = focal_index_cnt - 1;
+				for(int j = 0; j < focal_index_temp; j++)
+				{
+					focal_index[focal_index_cnt] = focal_index[j] + belief_inv_ele_vec[i];	
+					focal_index_cnt++;
+				}
+			}
+
+			for (int i = 0; i < pow(2, no_singletons - no_sin_plausibility) - 1; i++)
+				belief_inv += focal_elements[focal_index[i]];
+				plausibility = normalize_const - belief_inv;
+			end = clock();
+			time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+			cout << "Time spent on calculating plausibility \t: " << time_spent << endl;
+			cout << "Plausibility of " << pow(2, no_singletons) - pow(2, no_singletons - no_sin_plausibility) - 1 << " focal ele \t: " << plausibility / normalize_const << endl;
+			return plausibility / normalize_const;
 		}
 };
 
@@ -230,6 +297,8 @@ int main()
 	ds_vector.genRandomMassValues();
 	ds_vector.fillingBeliefVecAscending();
 	ds_vector.calBelief();
+	ds_vector.fillingBeliefInvVecAscending();
+	ds_vector.calPlausibility();
 	
 	return 0;
 }
