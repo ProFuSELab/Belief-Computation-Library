@@ -39,6 +39,7 @@ int main()
         ds_matrix.removeFocalEleSingleton();
         ds_matrix.removeFocalEleSingleton();
         ds_matrix.removeFocalEleSingleton();
+        ds_matrix.addFocalEleSingleton();
 	ds_matrix.printFocalElements();
         ds_matrix.removeFocalEleSingleton();
         ds_matrix.removeFocalEleSingleton();
@@ -46,7 +47,6 @@ int main()
         ds_matrix.printSingletonVector();
         ds_matrix.printFocalElements();
         ds_matrix.removeFocalEleSingleton();
-        ds_matrix.addFocalEleSingleton();
         ds_matrix.printSingletonVector();
         ds_matrix.printFocalElements();
         return 0;

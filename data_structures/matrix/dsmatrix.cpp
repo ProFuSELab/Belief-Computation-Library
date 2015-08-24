@@ -571,16 +571,29 @@ void DSMatrix::removeFocalEleSingleton(void)
 void DSMatrix::addFocalEleSingleton(void)
 {
 	string st;
+	bool odd = false, even = false;
 	cin >> st;
 	if (odd_singleton.size() <= even_singleton.size())
+	{
+		odd = true;
 		odd_singleton.push_back(st);
+	}
 	else
+	{
+		even = true;
 		even_singleton.push_back(st);
+	}
 	no_singletons++;
 
 	if (focal_element[0].size() < pow(2, odd_singleton.size()))
 		for (int i = 0; i < focal_element.size(); i++)
 			focal_element[i].resize((int)pow(2, odd_singleton.size()), 0);
+	else if (odd)
+	{
+		for (int i = 0; i < pow(2, even_singleton.size()); i++)
+			for (int j = pow(2, odd_singleton.size() - 1); j < pow(2, odd_singleton.size()); j++)
+				focal_element[i][j] = 0.0;
+	}
 
 	if (focal_element.size() < pow(2, even_singleton.size()))
 	{
@@ -588,6 +601,14 @@ void DSMatrix::addFocalEleSingleton(void)
 		row.assign(focal_element[0].size(), 0.0);
 		focal_element.resize((int)pow(2, even_singleton.size()), row);
 	}
+	else if (even)
+	{
+		for (int i = pow(2, even_singleton.size() - 1); i < pow(2, even_singleton.size()); i++)
+			for (int j = 0; j < pow(2, odd_singleton.size()); j++)
+				focal_element[i][j] = 0.0; 
+		
+	}
+	cout << "Added a singleton (\"" << st << "\")" << endl;
 }
 
 void DSMatrix::printFocalElements(void)				//print focal elements without normalizing
