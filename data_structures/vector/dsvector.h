@@ -16,7 +16,7 @@ class DSVector
 		DSVector(int singletons);
 		void debugOn(void);
 		void debugOff(void);
-		void getSingletons(void);
+		void readSingletons(void);
 		int calFocalIndexAnyOrder(void);
 		int calFocalIndexAscending(void);
 		void fillingBeliefVecAnyOrder(void);
@@ -35,6 +35,7 @@ class DSVector
 		void printFocalElements(void);
 		void printFocalElementsNormalized(void);
 		void printSingletonVector(void);
+		void printBliefInvVec(void);
 
 	private:
 		int no_singletons, no_sin_focalele, no_sin_belief, no_sin_plausibility;
@@ -45,7 +46,7 @@ class DSVector
 		std::vector<int> belief_inv_ele_vec;                         // integer value of singletons in a "belief complement"
 		std::vector<float> focal_element;                            // 1048576 focal elements from 20 singletons
 		std::vector<int> focal_index;
-		double normalize_const;
+		double normalizing_const;
 		bool debug;
 		clock_t begin, end;
 		double time_spent;

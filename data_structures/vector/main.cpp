@@ -1,5 +1,4 @@
-#include "vector/dsvector.h"
-#include "matrix/dsmatrix.h"
+#include "dsvector.h"
 
 using namespace std;
 
@@ -8,7 +7,6 @@ int main()
         int index;
         double element;
         DSVector ds_vector;
-        DSMatrix ds_matrix;
         ds_vector.debugOff();
         ds_vector.readSingletons();
         index = ds_vector.calFocalIndexAscending();

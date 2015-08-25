@@ -1,7 +1,6 @@
-Time spent on accessing a focal element	: 2e-06
+Time spent on accessing a focal element	: 1e-06
 Time spent on calculating belief 	: 2e-06
 Belief of 31 focal elements 		: 0.0121273
-even : 4
 Belief inverse vector 	: 
 0 : 1
 1 : 0
@@ -9,7 +8,7 @@ Belief inverse vector 	:
 2 : 0
 4 : 0
 16 : 0
-Time spent on calculating plausibility 	: 1e-06
+Time spent on calculating plausibility 	: 2e-06
 Plausibility of 959 focal ele 	: 0.954851
 
 Odd singletons  	 : a c e g i 
