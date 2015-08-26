@@ -41,12 +41,12 @@ class DSMatrix
 
 	private:
 		int no_singletons, no_sin_focalele, no_sin_belief, no_sin_plausibility;
-		std::vector<std::string> odd_singleton, even_singleton, all_singleton;        	// vector of singleton names
+		std::vector<std::string> odd_singleton, even_singleton, all_singleton;
 		std::vector<std::string>::iterator it_str;
-		std::vector<std::pair<int, int> > belief_ele_vec;              	// integer value of singletons in a "belief"
-		std::vector<std::pair<int, int> > plausibility_ele_vec;         // integer value of singletons in a "plausibility"
-		std::vector<std::pair<int, int> > belief_inv_ele_vec;          	// integer value of singletons in a "belief complement"
-		std::vector<std::vector<float> > focal_element;      		// focal elements
+		std::vector<std::pair<int, int> > belief_ele_vec;
+		std::vector<std::pair<int, int> > plausibility_ele_vec;
+		std::vector<std::pair<int, int> > belief_inv_ele_vec;
+		std::vector<std::vector<float> > focal_element;
 		std::vector<std::pair<int, int> > focal_index;
 		double normalizing_const;
 		bool debug;
