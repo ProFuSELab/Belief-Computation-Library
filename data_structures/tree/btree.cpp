@@ -43,6 +43,7 @@ BTree::BTree(void)
 //**************************************************************************************************
 BTree::~BTree(void)
 {
+
 }
 
 //**************************************************************************************************
@@ -52,23 +53,28 @@ void BTree::createTree(int singleton)
 {
 	for (int i = 0; i < singleton; i++)
 	{
-		int level = 0;
-		node *new_node;
+		addSubTreeSingleton(i);
+	}
+}
+
+void BTree::addSubTreeSingleton(int i)
+{
+	int level = 0;
+	node *new_node;
+	new_node = new node;
+	new_node->mass = 0.0;
+	new_node->left = root;
+	new_node->right = NULL;
+	root = new_node;
+	level = i - 1;
+	if (level >= 0)
+	{
 		new_node = new node;
 		new_node->mass = 0.0;
-		new_node->left = root;
+		new_node->left = NULL;
 		new_node->right = NULL;
-		root = new_node;
-		level = i - 1;
-		if (level >= 0)
-		{
-			new_node = new node;
-			new_node->mass = 0.0;
-			new_node->left = NULL;
-			new_node->right = NULL;
-			root->right = new_node;
-			addSubTree(root->right, level - 1);
-		}
+		root->right = new_node;
+		addSubTree(root->right, level - 1);
 	}
 }
 

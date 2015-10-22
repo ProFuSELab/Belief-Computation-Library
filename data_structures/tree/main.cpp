@@ -9,6 +9,7 @@ int main()
         DSTree ds_tree;
         ds_tree.debugOff();
         ds_tree.readSingletons();
+	ds_tree.addFocalEleSingleton();
         ds_tree.genIncreasingMassValues();
         index = ds_tree.calFocalIndexAscending();
         element = ds_tree.accessFocalElement(index);

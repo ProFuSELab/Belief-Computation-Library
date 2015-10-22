@@ -300,6 +300,8 @@ void DSTree::fillingBeliefInvVecAscending(void)
 void DSTree::genRandomMassValues(void)
 {
 	srand(time(NULL)); 				// initialize random seed
+	normalizing_const = 0.0;
+
 	randomMassOnLeaves(b_tree.getRoot());
 
 	// no need to normalize everytime, we can normalize only when we use
@@ -336,6 +338,8 @@ void DSTree::genIncreasingMassValues(void)
 {
 	srand(time(NULL)); 				// initialize random seed
 	int leafval = 1;
+	normalizing_const = 0.0;
+
 	increasingMassOnLeaves(b_tree.getRoot(), leafval);
 
 	// no need to normalize everytime, we can normalize only when we use
@@ -570,7 +574,7 @@ void DSTree::addFocalEleSingleton(void)
 	cin >> st;
 	singleton.push_back(st);
 	no_singletons++;
-	// have to write this part
+	b_tree.addSubTreeSingleton(no_singletons - 1);
 }
 
 //**************************************************************************************************

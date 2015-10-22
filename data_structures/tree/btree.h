@@ -17,13 +17,12 @@ class BTree
 		BTree(void);
 		~BTree(void);
 	
-		void createTree(int singleton);
-		node *search(int key);
-		void deleteSubTree(int key);
-		void addSubTree(node *leaf, int level);
-		double deleteSubTree(node *leaf);
 		node *getRoot();
 		void setRoot(node *newroot);
+		void createTree(int singleton);
+		void addSubTreeSingleton(int i);
+		void addSubTree(node *leaf, int level);
+		double deleteSubTree(node *leaf);
 	
 	private:
 		node *root;
