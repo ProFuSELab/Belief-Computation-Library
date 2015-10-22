@@ -387,11 +387,9 @@ double DSTree::accessFocalElement(int index)
 		else if (index / (int)pow(2, level) == 1)
 		{
 			index -= (int)pow(2, level);
+			if (index == 0)
+				break;
 			leaf = leaf->right;
-		}
-		else
-		{
-			assert(false);
 		}
 		level = level - 1;
 	}
