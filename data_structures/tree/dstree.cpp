@@ -35,10 +35,10 @@ using namespace std;
 //**************************************************************************************************
 DSTree::DSTree(void)
 {
-	no_singletons = 5;
+	no_singletons = 1;
 	normalizing_const = 0.0;
 	debug = false;
-	b_tree.createTree(5);
+	b_tree.createTree(1);
 	focal_index.assign(1048576, 0);
 }
 
@@ -395,7 +395,7 @@ double DSTree::accessFocalElement(int index)
 	}
 	element = leaf->mass;
 	end = clock();
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 
 	if (debug)
 		cout << "Focal element " << index << "\t: " << element / normalizing_const << endl;
@@ -447,7 +447,7 @@ double DSTree::calBelief(void)
 	}
 	end = clock();
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 	cout << "Time spent on calculating belief \t: " << time_spent << endl;
 	cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " 
 		<< belief / normalizing_const << endl;
@@ -499,7 +499,7 @@ double DSTree::calPlausibility(void)
 	plausibility = normalizing_const - belief_inv;
 	end = clock();
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 	cout << "Time spent on calculating plausibility \t: " << time_spent << endl;
 	cout << "Plausibility of " << (int)pow(2, no_singletons) - (int)pow(2, no_singletons - 
 		no_sin_plausibility) << " focal ele \t: " 

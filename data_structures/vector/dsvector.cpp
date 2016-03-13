@@ -325,7 +325,7 @@ double DSVector::accessFocalElement(int index)
 	begin = clock();
 	element = focal_element[index];
 	end = clock();
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 
 	if (debug)
 		cout << "Focal element " << index << "\t: " << element << endl;
@@ -359,7 +359,7 @@ double DSVector::calBelief(void)
 		belief += focal_element[focal_index[i]];
 	end = clock();
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 	cout << "Time spent on calculating belief \t: " << time_spent << endl;
 	cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " 
 		<< belief / normalizing_const << endl;
@@ -393,7 +393,7 @@ double DSVector::calPlausibility(void)
 		plausibility = normalizing_const - belief_inv;
 	end = clock();
 
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
 	cout << "Time spent on calculating plausibility \t: " << time_spent << endl;
 	cout << "Plausibility of " << (int)pow(2, no_singletons) - (int)pow(2, no_singletons - 
 		no_sin_plausibility) - 1 << " focal ele \t: " 
