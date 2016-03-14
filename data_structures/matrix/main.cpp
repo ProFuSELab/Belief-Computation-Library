@@ -18,7 +18,7 @@ int main()
 		{       
 			for (int i = 0; i < fod; i++)
 			{       
-				if (rand() % 2)
+				if (rand() % 3 != 0)
 				{
 					if (i % 2 == 1)
 						row_param.push_back(i / 2);
