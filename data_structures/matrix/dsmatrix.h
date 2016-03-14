@@ -22,6 +22,7 @@ class DSMatrix
 		std::pair<int, int> calFocalIndexAscending(void);
 		void fillingBeliefVecAnyOrder(void);
 		void fillingBeliefVecAscending(void);
+		int fillingBeliefVecRandom(std::vector<int> & rowVec, std::vector<int> & colVec);
 		void fillingPlausibilityVecAnyOrder(void);
 		void fillingPlausibilityVecAscending(void);
 		std::vector<std::string> oddEvenToAll(void);

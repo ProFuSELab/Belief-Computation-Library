@@ -18,7 +18,7 @@ int main()
 		{       
 			for (int i = 0; i < fod; i++)
 			{       
-				if (rand() % 3 != 0)
+				if (rand() % 3 == 0)
 				{
 					if (i % 2 == 1)
 						row_param.push_back(i / 2);
@@ -26,7 +26,8 @@ int main()
 						col_param.push_back(i / 2);
 				}
 			}
-			experiment_time = ds_matrix.accessFocalElementCoVecs(row_param, col_param);
+			ds_matrix.fillingBeliefVecRandom(row_param, col_param);
+			experiment_time = ds_matrix.calBelief();
 			row_param.clear();
 			col_param.clear();
 			total_time += experiment_time;

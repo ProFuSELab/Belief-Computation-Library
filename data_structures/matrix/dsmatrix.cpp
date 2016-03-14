@@ -260,6 +260,28 @@ void DSMatrix::fillingBeliefVecAscending(void)
 }
 
 //**************************************************************************************************
+// Filling belief vector random, for experiments 
+//**************************************************************************************************
+int DSMatrix::fillingBeliefVecRandom(vector<int> & rowVec, vector<int> & colVec)
+{
+	belief_ele_vec.clear();
+	no_sin_belief = rowVec.size() + colVec.size();
+
+	for (vector<int>::iterator it = rowVec.begin(); it != rowVec.end(); ++it)
+	{
+		belief_ele_vec.push_back(make_pair(power[*it], 0));	
+	}
+
+	for (vector<int>::iterator it = colVec.begin(); it != colVec.end(); ++it)
+	{
+		belief_ele_vec.push_back(make_pair(0, power[*it]));	
+	}
+	// cout << "Belief ele vec size : " << belief_ele_vec.size() << endl;
+
+	return belief_ele_vec.size();
+}
+
+//**************************************************************************************************
 // Filling plausibility vector, any order 
 //**************************************************************************************************
 void DSMatrix::fillingPlausibilityVecAnyOrder(void)
@@ -590,7 +612,7 @@ double DSMatrix::accessFocalElementCoVecs(vector<int> & rowVec, vector<int> & co
 double DSMatrix::calBelief(void)
 {
 	double belief = 0.0;
-	int focal_index_cnt = 0, focal_index_temp;
+	int focal_index_cnt = 0, focal_index_temp, subsets = 0;
 
 	begin = clock();
 	for (int i = 0; i < no_sin_belief; i++)		// finding all the indexes
@@ -608,16 +630,20 @@ double DSMatrix::calBelief(void)
 		}
 	}
 
-	for (int i = 0; i < pow(2, no_sin_belief) - 1; i++)
+	subsets = power[no_sin_belief];
+	for (int i = 0; i < subsets - 1; i++)
 		belief += focal_element[focal_index[i].first][focal_index[i].second];
 	end = clock();
 
 	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+	/*
 	cout << "Time spent on calculating belief \t: " << time_spent << endl;
 	cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " 
 		<< belief / normalizing_const << endl;
+	*/
 
-	return belief / normalizing_const;
+	// return belief / normalizing_const;		// returns belief
+	return time_spent;				// returns time
 }
 
 //**************************************************************************************************
