@@ -1,170 +1,20 @@
-Time spent on accessing a focal element	: 3e-06
-Time spent on calculating belief 	: 0.023834
-Belief of 1.04858e+06 focal elements 		: 1
-Belief inverse vector 	: 
-0 : 1
-1 : 0
-0 : 2
-2 : 0
-4 : 0
-16 : 0
-0 : 32
-32 : 0
-0 : 64
-64 : 0
-0 : 128
-128 : 0
-0 : 256
-256 : 0
-0 : 512
-512 : 0
-Time spent on calculating plausibility 	: 0.001733
-Plausibility of 983039 focal ele 	: 0.93799
-
-Odd singletons  	 : a c e g i k m o q s 
-Even singletons 	 : b d f h j l n p r t 
-
-Removed an odd singleton ("c")
-Odd singletons      	 : 9
-Even singletons     	 : 10
-New Matrix size     	 : 1024 * 512
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 2.74877e+11
-
-Removed an even singleton ("d")
-Odd singletons      	 : 9
-Even singletons     	 : 9
-New Matrix size     	 : 512 * 512
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.3717e+11
-
-Removed an even singleton ("j")
-Odd singletons      	 : 9
-Even singletons     	 : 8
-New Matrix size     	 : 256 * 512
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 6.75113e+10
-
-Removed an even singleton ("b")
-Odd singletons      	 : 9
-Even singletons     	 : 7
-New Matrix size     	 : 128 * 512
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 3.37221e+10
-
-Removed an odd singleton ("a")
-Odd singletons      	 : 8
-Even singletons     	 : 7
-New Matrix size     	 : 128 * 256
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.6861e+10
-
-Removed an odd singleton ("e")
-Odd singletons      	 : 7
-Even singletons     	 : 7
-New Matrix size     	 : 128 * 128
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 8.43049e+09
-
-Removed an even singleton ("f")
-Odd singletons      	 : 7
-Even singletons     	 : 6
-New Matrix size     	 : 64 * 128
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 4.19847e+09
-
-Removed an odd singleton ("g")
-Odd singletons      	 : 6
-Even singletons     	 : 6
-New Matrix size     	 : 64 * 64
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 2.09922e+09
-
-Removed an even singleton ("h")
-Odd singletons      	 : 6
-Even singletons     	 : 5
-New Matrix size     	 : 32 * 64
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.04122e+09
-
-Removed an odd singleton ("i")
-Odd singletons      	 : 5
-Even singletons     	 : 5
-New Matrix size     	 : 32 * 32
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 5.20602e+08
-
-Removed an odd singleton ("k")
-Odd singletons      	 : 4
-Even singletons     	 : 5
-New Matrix size     	 : 32 * 16
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 2.60293e+08
-
-Removed an even singleton ("l")
-Odd singletons      	 : 4
-Even singletons     	 : 4
-New Matrix size     	 : 16 * 16
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.25952e+08
-
-Removed an odd singleton ("m")
-Odd singletons      	 : 3
-Even singletons     	 : 4
-New Matrix size     	 : 16 * 8
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 6.29719e+07
-
-Removed an even singleton ("n")
-Odd singletons      	 : 3
-Even singletons     	 : 3
-New Matrix size     	 : 8 * 8
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 2.93888e+07
-
-Removed an odd singleton ("o")
-Odd singletons      	 : 2
-Even singletons     	 : 3
-New Matrix size     	 : 8 * 4
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.46924e+07
-
-Removed an even singleton ("p")
-Odd singletons      	 : 2
-Even singletons     	 : 2
-New Matrix size     	 : 4 * 4
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 6.2976e+06
-Added a singleton ("q")
-
-Removed an even singleton ("r")
-Odd singletons      	 : 3
-Even singletons     	 : 1
-New Matrix size     	 : 2 * 8
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 2.10022e+06
-
-Removed an odd singleton ("s")
-Odd singletons      	 : 2
-Even singletons     	 : 1
-New Matrix size     	 : 2 * 4
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 1.04909e+06
-
-Removed an even singleton ("t")
-Odd singletons      	 : 2
-Even singletons     	 : 0
-New Matrix size     	 : 1 * 4
-Total allocation    	 : 1024 * 1024
-Normalizing constant	 : 256
-
-Odd singletons  	 : q q 
-Even singletons 	 : NONE
-
-
-Wrong input !!, please enter a correct singleton
-
-Odd singletons  	 : q q 
-Even singletons 	 : NONE
-
-0	256	0	0	
+FoD size : 1 Time spent : 436546
+FoD size : 2 Time spent : 456151
+FoD size : 3 Time spent : 453728
+FoD size : 4 Time spent : 462125
+FoD size : 5 Time spent : 475285
+FoD size : 6 Time spent : 490782
+FoD size : 7 Time spent : 513977
+FoD size : 8 Time spent : 501516
+FoD size : 9 Time spent : 505333
+FoD size : 10 Time spent : 511041
+FoD size : 11 Time spent : 522691
+FoD size : 12 Time spent : 526642
+FoD size : 13 Time spent : 540999
+FoD size : 14 Time spent : 544598
+FoD size : 15 Time spent : 553208
+FoD size : 16 Time spent : 567653
+FoD size : 17 Time spent : 587969
+FoD size : 18 Time spent : 617255
+FoD size : 19 Time spent : 646591
+FoD size : 20 Time spent : 667204

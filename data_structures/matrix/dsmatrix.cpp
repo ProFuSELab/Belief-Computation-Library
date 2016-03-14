@@ -44,6 +44,12 @@ DSMatrix::DSMatrix(void)
 	row.assign(1024, 0.0);
 	focal_element.assign(1024, row);
 	focal_index.assign(1048576, index);
+	int power_of_i = 1;
+	for (int i = 0; i < no_singletons; i++)
+	{
+		power.push_back(power_of_i);
+		power_of_i *= 2;
+	}
 }
 
 //**************************************************************************************************
@@ -60,6 +66,12 @@ DSMatrix::DSMatrix(int singletons)
 	row.assign(pow(2, (singletons + 1) / 2), 0.0);
 	focal_element.assign(pow(2, singletons / 2), row);
 	focal_index.assign(pow(2, singletons), index);
+	int power_of_i = 1;
+	for (int i = 0; i < no_singletons; i++)
+	{
+		power.push_back(power_of_i);
+		power_of_i *= 2;
+	}
 }
 
 //**************************************************************************************************
@@ -542,6 +554,34 @@ double DSMatrix::accessFocalElement(int row, int col)
 
 	cout << "Time spent on accessing a focal element\t: " << time_spent << endl;
 	return element;
+}
+
+//**************************************************************************************************
+// Access a focal element with even and odd singleton vectors, for experiments, returns time 
+//**************************************************************************************************
+double DSMatrix::accessFocalElementCoVecs(vector<int> & rowVec, vector<int> & colVec)
+{
+	double element;
+	int row = 0, col = 0;
+
+	begin = clock();
+	for (vector<int>::iterator it = rowVec.begin(); it != rowVec.end(); ++it)
+	{
+		row += power[*it];	
+	}
+	for (vector<int>::iterator it = colVec.begin(); it != colVec.end(); ++it)
+	{
+		col += power[*it];	
+	}
+	element = focal_element[row][col];
+	end = clock();
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+
+	if (debug)
+		cout << "Focal element (" << row << ", " << col << ")\t: " << element << endl;
+
+//	cout << "Time spent on accessing a focal element\t: " << time_spent << endl;
+	return time_spent;
 }
 
 //**************************************************************************************************

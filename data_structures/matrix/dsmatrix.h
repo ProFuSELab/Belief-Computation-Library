@@ -30,6 +30,7 @@ class DSMatrix
 		void genRandomMassValues(void);
 		void genIncreasingMassValues(void);
 		double accessFocalElement(int row, int col);
+		double accessFocalElementCoVecs(std::vector<int> & rowVec, std::vector<int> & colVec);
 		double calBelief(void);
 		double calPlausibility(void);
 		void removeFocalEleSingleton(void);
@@ -48,6 +49,7 @@ class DSMatrix
 		std::vector<std::pair<int, int> > belief_inv_ele_vec;
 		std::vector<std::vector<float> > focal_element;
 		std::vector<std::pair<int, int> > focal_index;
+		std::vector<int> power;
 		double normalizing_const;
 		bool debug;
 		clock_t begin, end;
