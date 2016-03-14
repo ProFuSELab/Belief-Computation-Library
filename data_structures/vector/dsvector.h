@@ -28,6 +28,7 @@ class DSVector
 		void genRandomMassValues(void);
 		void genIncreasingMassValues(void);
 		double accessFocalElement(int index);
+		double accessFocalElementIndexVec(std::vector<int> & indexVec);
 		double calBelief(void);
 		double calPlausibility(void);
 		void removeFocalEleSingleton(void);
@@ -46,6 +47,7 @@ class DSVector
 		std::vector<int> belief_inv_ele_vec;   	// singletons in a "belief complement"
 		std::vector<float> focal_element;
 		std::vector<int> focal_index;
+		std::vector<int> power;
 		double normalizing_const;
 		bool debug;
 		clock_t begin, end;

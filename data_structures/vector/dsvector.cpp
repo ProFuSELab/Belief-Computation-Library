@@ -23,6 +23,7 @@
 // Date			Researcher		Descriptions
 // -------------------	-------------------  	-------------------
 // August 2015		Lalintha Polpitiya	Vector Implementation
+// March 2016		Lalintha Polpitiya	Lookup table
 //
 //**************************************************************************************************
 
@@ -40,6 +41,12 @@ DSVector::DSVector(void)
 	debug = false;
 	focal_element.assign(1048576, 0);
 	focal_index.assign(1048576, 0);
+	int power_of_i = 1;
+	for (int i = 0; i < no_singletons; i++)		// first singleton is theta 0
+	{
+		power.push_back(power_of_i);
+		power_of_i *= 2;
+	}
 }
 
 //**************************************************************************************************
@@ -52,6 +59,12 @@ DSVector::DSVector(int singletons)
 	debug = false;
 	focal_element.assign(pow(2, singletons), 0.0);
 	focal_index.assign(pow(2, singletons), 0);
+	int power_of_i = 1;
+	for (int i = 0; i < no_singletons; i++)		// first singleton is theta 0
+	{
+		power.push_back(power_of_i);
+		power_of_i *= 2;
+	}
 }
 
 //**************************************************************************************************
@@ -78,7 +91,7 @@ void DSVector::readSingletons(void)
 	string st;
 
 	cin >> no_singletons;
-	for (int i = 0; i < no_singletons; i++)		// first singleton is theta1
+	for (int i = 0; i < no_singletons; i++)		// first singleton is theta 0
 	{
 		cin >> st;				// reading a singleton name from std input
 		singleton.push_back(st);
@@ -332,6 +345,29 @@ double DSVector::accessFocalElement(int index)
 
 	cout << "Time spent on accessing a focal element\t: " << time_spent << endl;
 	return element;
+}
+
+//**************************************************************************************************
+// Access a focal element with singleton index vector, for experiments, returns time 
+//**************************************************************************************************
+double DSVector::accessFocalElementIndexVec(vector<int> & indexVec)
+{
+	double element;
+	int index = 0;
+	begin = clock();
+	for (vector<int>::iterator it = indexVec.begin(); it != indexVec.end(); ++it) 
+	{
+		index += power[*it];
+	}
+
+	element = focal_element[index];
+	end = clock();
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+
+	if (debug)
+		cout << "Focal element " << index << "\t: " << element << endl;
+//	cout << "Time spent on accessing a focal element\t: " << time_spent << endl;
+	return time_spent;
 }
 
 //**************************************************************************************************
