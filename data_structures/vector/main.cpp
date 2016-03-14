@@ -10,7 +10,6 @@ int main()
         ds_vector.debugOff();
         ds_vector.readSingletons();
         ds_vector.genIncreasingMassValues();
-        index = ds_vector.calFocalIndexAscending();
 	vector <int> param;
 	srand(time(NULL));
 	for (int fod = 1; fod <= 20; fod++)
@@ -19,10 +18,12 @@ int main()
 		{
 			for (int i = 0; i < fod; i++)
 			{
-				if (rand() % 3 != 0)
+				if (rand() % 3 == 0)
 					param.push_back(i);
 			}
-			experiment_time = ds_vector.accessFocalElementIndexVec(param);
+			ds_vector.fillingBeliefVecRandom(param);
+			experiment_time = ds_vector.calBelief();
+			// cout << "Param size : " << param.size() << " Time : " << experiment_time << endl;
 			param.clear();
 			total_time += experiment_time; 
 		}

@@ -192,6 +192,37 @@ void DSVector::fillingBeliefVecAscending(void)
 }
 
 //**************************************************************************************************
+// Filling belief vector random, for experiments, returns time 
+//**************************************************************************************************
+int DSVector::fillingBeliefVecRandom(vector<int> & indexVec)
+{
+	belief_ele_vec.clear();
+	no_sin_belief = indexVec.size();
+	for (vector<int>::iterator it = indexVec.begin(); it != indexVec.end(); ++it) 
+	{
+		belief_ele_vec.push_back(power[*it]);	
+	}
+
+
+	if (debug)
+	{
+		cout << "Belief ele vec size : " << belief_ele_vec.size() << endl;
+		for (vector<int>::iterator it = belief_ele_vec.begin(); it != belief_ele_vec.end(); ++it) 
+		{
+			cout << *it << endl;	
+		}
+	}
+	/*
+	cout << "Belief ele vec size : " << belief_ele_vec.size() << endl;
+	for (vector<int>::iterator it = belief_ele_vec.begin(); it != belief_ele_vec.end(); ++it) 
+	{
+		cout << *it << endl;	
+	}
+	*/
+	return belief_ele_vec.size();;
+}
+
+//**************************************************************************************************
 // Filling plausibility vector, any order 
 //**************************************************************************************************
 void DSVector::fillingPlausibilityVecAnyOrder(void)
@@ -376,7 +407,7 @@ double DSVector::accessFocalElementIndexVec(vector<int> & indexVec)
 double DSVector::calBelief(void)
 {
 	double belief = 0.0;
-	int focal_index_cnt = 0, focal_index_temp;
+	int focal_index_cnt = 0, focal_index_temp, subsets = 0;
 
 	begin = clock();
 	for (int i = 0; i < no_sin_belief; i++)		// finding required indexes
@@ -391,16 +422,20 @@ double DSVector::calBelief(void)
 		}
 	}
 
-	for (int i = 0; i < pow(2, no_sin_belief) - 1; i++)
+	subsets = power[no_sin_belief];
+	for (int i = 1; i < subsets; i++)
 		belief += focal_element[focal_index[i]];
 	end = clock();
 
 	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+	/*
 	cout << "Time spent on calculating belief \t: " << time_spent << endl;
-	cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " 
+	cout << "Belief of " << subsets - 1 << " focal elements \t\t: " 
 		<< belief / normalizing_const << endl;
+	*/
 
-	return belief / normalizing_const;
+//	return belief / normalizing_const; 		// returns belief
+	return time_spent;				// returns time
 }
 
 //**************************************************************************************************
