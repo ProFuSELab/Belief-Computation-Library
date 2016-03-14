@@ -19,7 +19,7 @@ int main()
 		{
 			for (int i = 0; i < fod; i++)
 			{
-				if (rand() % 2)
+				if (rand() % 3 != 0)
 					param.push_back(i);
 			}
 			experiment_time = ds_vector.accessFocalElementIndexVec(param);
