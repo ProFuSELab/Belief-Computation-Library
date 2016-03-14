@@ -423,7 +423,7 @@ double DSVector::calBelief(void)
 	}
 
 	subsets = power[no_sin_belief];
-	for (int i = 1; i < subsets; i++)
+	for (int i = 0; i < subsets - 1; i++)
 		belief += focal_element[focal_index[i]];
 	end = clock();
 
