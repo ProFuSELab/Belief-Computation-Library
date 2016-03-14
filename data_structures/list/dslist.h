@@ -23,6 +23,7 @@ class DSList
 		int calFocalIndexAscending(void);
 		void fillingBeliefVecAnyOrder(void);
 		void fillingBeliefVecAscending(void);
+		int fillingBeliefVecRandom(std::vector<int> & indexVec);
 		void fillingPlausibilityVecAnyOrder(void);
 		void fillingPlausibilityVecAscending(void);
 		void fillingBeliefInvVecAnyOrder(void);

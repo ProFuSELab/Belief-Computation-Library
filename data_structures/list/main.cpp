@@ -12,15 +12,17 @@ int main()
 
 	for (int fod = 1; fod <= 20; fod++)
 	{       
-		for (int rounds = 0; rounds < 10000; rounds++)
+		for (int rounds = 0; rounds < 1000; rounds++)
 		{       
 			ds_list.genRandomList(fod);
 			for (int i = 0; i < fod; i++)
 			{       
-				if (rand() % 3 != 0)
+				if (rand() % 3 == 0)
 				param.push_back(i);
 			}
-			experiment_time = ds_list.accessFocalElementIndexVec(param);
+			ds_list.fillingBeliefVecRandom(param);
+			experiment_time = ds_list.calBelief();
+
 			param.clear();
 			total_time += experiment_time;
 		}

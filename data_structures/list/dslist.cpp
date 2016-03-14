@@ -189,6 +189,37 @@ void DSList::fillingBeliefVecAscending(void)
 }
 
 //**************************************************************************************************
+// Filling belief vector random, for experiments
+//**************************************************************************************************
+int DSList::fillingBeliefVecRandom(vector<int> & indexVec)
+{
+	belief_ele_vec.clear();
+	no_sin_belief = indexVec.size();	
+	for (vector<int>::iterator it = indexVec.begin(); it != indexVec.end(); ++it) 
+	{
+		belief_ele_vec.push_back(power[*it]);   
+	}
+
+
+	if (debug)
+	{
+		cout << "Belief ele vec size : " << belief_ele_vec.size() << endl;
+		for (vector<int>::iterator it = belief_ele_vec.begin(); it != belief_ele_vec.end(); ++it) 
+		{
+			cout << *it << endl;    
+		}
+	}
+	/*
+	cout << "Belief ele vec size : " << belief_ele_vec.size() << endl;
+	for (vector<int>::iterator it = belief_ele_vec.begin(); it != belief_ele_vec.end(); ++it) 
+	{
+		cout << *it << endl;    
+	}
+	*/
+	return belief_ele_vec.size();;	
+}
+
+//**************************************************************************************************
 // Filling plausibility vector, any order 
 //**************************************************************************************************
 void DSList::fillingPlausibilityVecAnyOrder(void)
@@ -421,33 +452,42 @@ double DSList::accessFocalElementIndexVec(vector<int> & indexVec)
 double DSList::calBelief(void)
 {
 	double belief = 0.0;
-	/* have to change
-	int focal_index_cnt = 0, focal_index_temp;
+	int belief_prop = 0;
 
 	begin = clock();
-	for (int i = 0; i < no_sin_belief; i++)		// finding required indexes
-	{ 
-		focal_index[focal_index_cnt] = belief_ele_vec[i];
-		focal_index_cnt++;
-		focal_index_temp = focal_index_cnt - 1;
-		for(int j = 0; j < focal_index_temp; j++)
+	for (vector<int>::iterator it = belief_ele_vec.begin(); it != belief_ele_vec.end(); ++it) 
+	{
+		belief_prop += *it;
+		// cout << "prop : " << *it << endl;
+	}
+		// cout << "index to find" << index << endl;
+	// cout << "Belief prop : " << belief_prop << endl;
+
+	for (list< pair <int, float > >::iterator it = focal_element.begin(); it != focal_element.end(); ++it) 
+	{
+	//	cout << (*it).first << endl;
+		if (~belief_prop & (*it).first)
 		{
-			focal_index[focal_index_cnt] = focal_index[j] + belief_ele_vec[i];	
-			focal_index_cnt++;
+		}
+		else
+		{
+			belief += (*it).second;		
+	//		cout << "yes : " << (*it).first << endl;
 		}
 	}
-
-	for (int i = 0; i < pow(2, no_sin_belief) - 1; i++)
-		belief += focal_element[focal_index[i]];
+	
 	end = clock();
 
 	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+
+/*
 	cout << "Time spent on calculating belief \t: " << time_spent << endl;
 	cout << "Belief of " << pow(2, no_sin_belief) - 1 << " focal elements \t\t: " 
 		<< belief / normalizing_const << endl;
+*/
 
-	*/ 
-	return belief / normalizing_const;
+	// return belief / normalizing_const;		// return beleif
+	return time_spent;				// return time
 }
 
 //**************************************************************************************************
