@@ -1,59 +1,20 @@
-Time spent on accessing a focal element	: 3e-06
-Time spent on calculating belief 	: 9e-06
-Belief of 31 focal elements 		: 1
-Time spent on calculating plausibility 	: 1e-06
-Plausibility of 30 focal ele 	: 0.997984
-a b c d e 
-1
-2
-4
-8
-16
-17
-9
-18
-19
-5
-10
-20
-21
-11
-22
-23
-3
-6
-12
-24
-25
-13
-26
-27
-7
-14
-28
-29
-15
-30
-31
-1
-2
-8
-16
-17
-10
-20
-21
-3
-12
-24
-25
-14
-28
-29
-1
-8
-16
-17
-12
-24
-25
+FoD size : 1 Time spent : 10000
+FoD size : 2 Time spent : 21188
+FoD size : 3 Time spent : 47249
+FoD size : 4 Time spent : 100963
+FoD size : 5 Time spent : 207086
+FoD size : 6 Time spent : 421685
+FoD size : 7 Time spent : 845614
+FoD size : 8 Time spent : 1.70244e+06
+FoD size : 9 Time spent : 3.41449e+06
+FoD size : 10 Time spent : 6.81363e+06
+FoD size : 11 Time spent : 1.3761e+07
+FoD size : 12 Time spent : 2.7265e+07
+FoD size : 13 Time spent : 5.45032e+07
+FoD size : 14 Time spent : 1.08502e+08
+FoD size : 15 Time spent : 2.17813e+08
+FoD size : 16 Time spent : 4.38114e+08
+FoD size : 17 Time spent : 8.79401e+08
+FoD size : 18 Time spent : 1.74996e+09
+FoD size : 19 Time spent : 3.48984e+09
+FoD size : 20 Time spent : 6.96415e+09

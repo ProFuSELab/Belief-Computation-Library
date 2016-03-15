@@ -35,11 +35,17 @@ using namespace std;
 //**************************************************************************************************
 DSTree::DSTree(void)
 {
-	no_singletons = 1;
+	no_singletons = 0;
 	normalizing_const = 0.0;
 	debug = false;
-	b_tree.createTree(1);
+//	b_tree.createTree(1);
 	focal_index.assign(1048576, 0);
+	int power_of_i = 1; 		// have to change this code
+	for (int i = 0; i < 20; i++)
+	{
+		power.push_back(power_of_i);
+		power_of_i *= 2;
+	}
 }
 
 //**************************************************************************************************
@@ -405,6 +411,50 @@ double DSTree::accessFocalElement(int index)
 }
 
 //**************************************************************************************************
+// Access a focal element 
+//**************************************************************************************************
+double DSTree::accessFocalElementIndexVec(vector<int> & indexVec)
+{
+	double element;
+	int index = 0;
+	int level = no_singletons - 1;
+	
+	begin = clock();
+
+	for (vector<int>::iterator it = indexVec.begin(); it != indexVec.end(); ++it)
+	{
+		index += power[*it];
+	}
+	// cout << "index : " << index << endl;
+
+	node *leaf;
+	leaf = b_tree.getRoot();
+	while (index % power[level] > 0)
+	{
+		if (index / power[level] == 0)
+			leaf = leaf->left;
+		else if (index / power[level] == 1)
+		{
+			index -= power[level];
+			if (index == 0)
+				break;
+			leaf = leaf->right;
+		}
+		level = level - 1;
+	}
+	element = leaf->mass;
+	// cout << "ele : " << element << endl;
+	end = clock();
+	time_spent = 1000000 * (double)(end - begin) / CLOCKS_PER_SEC;
+
+	if (debug)
+		cout << "Focal element " << index << "\t: " << element / normalizing_const << endl;
+
+	// cout << "Time spent on accessing a focal element\t: " << time_spent << endl;
+	return element;
+}
+
+//**************************************************************************************************
 // Calculating belief 
 //**************************************************************************************************
 double DSTree::calBelief(void)
@@ -571,6 +621,15 @@ void DSTree::addFocalEleSingleton(void)
 
 	cin >> st;
 	singleton.push_back(st);
+	no_singletons++;
+	b_tree.addSubTreeSingleton(no_singletons - 1);
+}
+
+//**************************************************************************************************
+// Add focal elements of a singleton 
+//**************************************************************************************************
+void DSTree::addSingleton(void)
+{
 	no_singletons++;
 	b_tree.addSubTreeSingleton(no_singletons - 1);
 }

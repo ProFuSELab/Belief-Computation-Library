@@ -32,11 +32,13 @@ class DSTree
 		void genIncreasingMassValues(void);
 		void increasingMassOnLeaves(node * leaf, int leafval);
 		double accessFocalElement(int index);
+		double accessFocalElementIndexVec(std::vector<int> & indexVec);
 		double calBelief(void);
 		double calPlausibility(void);
 		void removeFocalEleSingleton(void);
 		void removeSubTrees(node *leaf, int step, node *parent, bool atroot, bool parentleft);
 		void addFocalEleSingleton(void);
+		void addSingleton(void);
 		void printFocalElements(void);
 		void traverseTree(node *leaf);
 		void printFocalElementsNormalized(void);
@@ -52,6 +54,7 @@ class DSTree
 		std::vector<int> plausibility_ele_vec;	// singletons in a "plausibility"
 		std::vector<int> belief_inv_ele_vec;   	// singletons in a "belief complement"
 		std::vector<int> focal_index;
+		std::vector<int> power;
 		double normalizing_const;
 		bool debug;
 		clock_t begin, end;
