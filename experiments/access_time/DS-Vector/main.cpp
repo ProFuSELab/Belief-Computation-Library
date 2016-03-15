@@ -15,7 +15,7 @@ int main()
 	srand(time(NULL));
 	for (int fod = 1; fod <= 20; fod++)
 	{
-		for (int rounds = 0; rounds < 1000000; rounds++)
+		for (int rounds = 0; rounds < 100000; rounds++)
 		{
 			for (int i = 0; i < fod; i++)
 			{
