@@ -12,9 +12,9 @@ int main()
 
 	for (int fod = 1; fod <= 20; fod++)
 	{       
-		for (int rounds = 0; rounds < 1000; rounds++)
+		ds_list.genRandomList(fod);
+		for (int rounds = 0; rounds < 100000; rounds++)
 		{       
-			ds_list.genRandomList(fod);
 			for (int i = 0; i < fod; i++)
 			{       
 				if (rand() % 3 == 0)
